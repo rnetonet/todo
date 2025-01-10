@@ -26,7 +26,7 @@ public class TodoService {
         return todoSalvoDTO;
     }
 
-    public List<TodoDTO> listarTodos() {
+    public List<TodoDTO> listar() {
         List<TodoDTO> todos = todoRepository.findAll().stream().map(TodoMapper.INSTANCE::toDTO)
                 .collect(Collectors.toList());
         return todos;

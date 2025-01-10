@@ -24,18 +24,18 @@ public class TodoController {
     @Autowired
     TodoService todoService;
 
-    @GetMapping("/listar-todos")
-    public ResponseEntity<List<TodoDTO>> listarTodos() {
-        return ResponseEntity.ok(todoService.listarTodos());
+    @GetMapping("/listar")
+    public ResponseEntity<List<TodoDTO>> listar() {
+        return ResponseEntity.ok(todoService.listar());
     }
 
-    @GetMapping("/listar-por-usuario/{userId}")
+    @GetMapping("/listarPorusuario/{userId}")
     public ResponseEntity<?> listarPorUsuario(@PathVariable long userId) {
         return null;
     }
 
 
-    @GetMapping("/listar-por-usuario/{userId}/status/{status}")
+    @GetMapping("/listarPorUsuario/{userId}/status/{status}")
     public ResponseEntity<?> listarPorUsuarioEStatus(@PathVariable long userId, @PathVariable String status) {
         return null;
     }
