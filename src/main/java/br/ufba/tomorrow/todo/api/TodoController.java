@@ -1,5 +1,6 @@
 package br.ufba.tomorrow.todo.api;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -15,15 +16,13 @@ import br.ufba.tomorrow.todo.dto.TodoCriarDTO;
 import br.ufba.tomorrow.todo.dto.TodoDTO;
 import br.ufba.tomorrow.todo.mappers.TodoMapper;
 import br.ufba.tomorrow.todo.repository.TodoRepository;
+import br.ufba.tomorrow.todo.services.TodoService;
 
 @RestController
 @RequestMapping("api/v1")
 public class TodoController {
-    TodoRepository todoRepository;
-
-    public TodoController(TodoRepository todoRepository) {
-        this.todoRepository = todoRepository;
-    }
+    @Autowired
+    TodoService todoService;
 
     @GetMapping("/todos")
     public ResponseEntity<?> listar() {
@@ -44,10 +43,7 @@ public class TodoController {
 
     @PostMapping("/criar")
     public ResponseEntity<TodoDTO> criar(@RequestBody TodoCriarDTO todoCriarDTO) {
-        Todo todo = TodoMapper.INSTANCE.toEntity(todoCriarDTO);
-        Todo todoSalvo = todoRepository.save(todo);
-
-        return ResponseEntity.ok(TodoMapper.INSTANCE.toDTO(todoSalvo));
+        return ResponseEntity.ok(todoService.criar(todoCriarDTO));
     }
 
     @PutMapping("/atualizar/{todoId}")
