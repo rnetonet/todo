@@ -17,14 +17,14 @@ import lombok.NoArgsConstructor;
 @Entity
 public class Todo {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @ManyToOne
     @JoinColumn(name="id_usuario")
     private Usuario usuario;
 
-    @Column(nullable = false)
+    @Column
     String item;
 
     @Column(nullable = false)
@@ -33,5 +33,6 @@ public class Todo {
     @Column(nullable = true)
     private LocalDate dataConclusao;
 
-    private Estado status = Estado.EM_ANDAMENTO;
+    @Column(nullable = false)
+    private Status status = Status.EM_ANDAMENTO;
 }
