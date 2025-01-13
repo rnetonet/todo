@@ -1,0 +1,19 @@
+meta {
+  name: Atualizar
+  type: http
+  seq: 4
+}
+
+put {
+  url: http://localhost:8080/api/v1/atualizar
+  body: json
+  auth: none
+}
+
+body:json {
+  {
+    "id": 1,
+    "item": "Teste Atualizado",
+    "dataPrazo": "2025-01-30"
+  }
+}

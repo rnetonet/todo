@@ -34,5 +34,5 @@ public class Todo {
     private LocalDate dataConclusao;
 
     @Column(nullable = false)
-    private Status status = Status.EM_ANDAMENTO;
+    private TodoStatus status = TodoStatus.EM_ANDAMENTO;
 }
