@@ -1,0 +1,18 @@
+meta {
+  name: Criar
+  type: http
+  seq: 2
+}
+
+post {
+  url: http://localhost:8080/api/v1/usuario/criar
+  body: json
+  auth: none
+}
+
+body:json {
+  {
+    "email": "teste2@teste.net",
+    "senha": "teste2"
+  }
+}

@@ -29,7 +29,7 @@ public class Usuario {
 
     @NotBlank(message = "Senha é obrigatória")
     @Size(min = 6, message = "Senha deve ter no mínimo 6 caracteres")
-    @Column(unique=true, nullable=false)
+    @Column(nullable=false)
     private String senha;
     
     @OneToMany(mappedBy = "usuario")

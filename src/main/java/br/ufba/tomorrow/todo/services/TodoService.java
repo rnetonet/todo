@@ -20,16 +20,19 @@ public class TodoService {
     @Autowired
     TodoRepository todoRepository;
 
+    @Autowired
+    TodoMapper todoMapper;
+
     public TodoDTO criar(TodoCriarDTO todoCriarDTO) {
-        Todo todo = TodoMapper.INSTANCE.toEntity(todoCriarDTO);
+        Todo todo = todoMapper.toEntity(todoCriarDTO);
         Todo todoSalvo = todoRepository.save(todo);
-        TodoDTO todoSalvoDTO = TodoMapper.INSTANCE.toDTO(todoSalvo);
+        TodoDTO todoSalvoDTO = todoMapper.toDTO(todoSalvo);
 
         return todoSalvoDTO;
     }
 
     public List<TodoDTO> listar() {
-        List<TodoDTO> todos = todoRepository.findAll().stream().map(TodoMapper.INSTANCE::toDTO)
+        List<TodoDTO> todos = todoRepository.findAll().stream().map(todoMapper::toDTO)
                 .collect(Collectors.toList());
         return todos;
     }
@@ -38,13 +41,13 @@ public class TodoService {
         Todo todo = todoRepository.findById(todoAtualizarDTO.getId())
                 .orElseThrow(() -> new RuntimeException("Todo não encontrado"));
 
-        Todo todoAtualizado = TodoMapper.INSTANCE.toEntity(todoAtualizarDTO);
+        Todo todoAtualizado = todoMapper.toEntity(todoAtualizarDTO);
         todoAtualizado.setId(todo.getId());
         todoAtualizado.setUsuario(todo.getUsuario());
 
         todoRepository.save(todoAtualizado);
 
-        return TodoMapper.INSTANCE.toDTO(todoAtualizado);
+        return todoMapper.toDTO(todoAtualizado);
     }
 
     public TodoDTO atualizarStatus(Long todoId, TodoStatus status) {
@@ -57,12 +60,12 @@ public class TodoService {
 
         todoRepository.save(todo);
         
-        return TodoMapper.INSTANCE.toDTO(todo);
+        return todoMapper.toDTO(todo);
     }
 
     public TodoDTO deletar(Long todoId) {
         Todo todo = todoRepository.findById(todoId).orElseThrow(() -> new RuntimeException("Todo não encontrado"));
         todoRepository.delete(todo);
-        return TodoMapper.INSTANCE.toDTO(todo);
+        return todoMapper.toDTO(todo);
     }
 }

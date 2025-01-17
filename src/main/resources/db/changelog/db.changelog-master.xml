@@ -14,14 +14,13 @@
                 <constraints unique="true" nullable="false"/>
             </column>
             <column name="senha" type="varchar(255)">
-                <constraints unique="true" nullable="false"/>
+                <constraints nullable="false"/>
             </column>
         </createTable>
     </changeSet>
 
     <changeSet id="2" author="rnetonet">
         <insert tableName="usuario">
-            <column name="id" value="1"/>
             <column name="email" value="admin@example.com"/>
             <column name="senha" value="admin123"/>
         </insert>
@@ -54,7 +53,7 @@
             baseColumnNames="id_usuario" 
             constraintName="fk_todo_usuario" 
             referencedTableName="usuario"
-            referencedColumnNames="id"/>
+            referencedColumnNames="id" />
     </changeSet>
 
 </databaseChangeLog>

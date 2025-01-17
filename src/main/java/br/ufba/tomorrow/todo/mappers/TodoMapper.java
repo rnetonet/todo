@@ -9,7 +9,7 @@ import br.ufba.tomorrow.todo.dto.TodoAtualizarDTO;
 import br.ufba.tomorrow.todo.dto.TodoCriarDTO;
 import br.ufba.tomorrow.todo.dto.TodoDTO;
 
-@Mapper
+@Mapper(componentModel = "spring")
 public interface TodoMapper {
     TodoMapper INSTANCE = Mappers.getMapper(TodoMapper.class);
 

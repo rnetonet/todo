@@ -21,7 +21,7 @@ public class Todo {
     private Long id;
 
     @ManyToOne
-    @JoinColumn(name="id_usuario")
+    @JoinColumn(name = "id_usuario")
     private Usuario usuario;
 
     @Column
