@@ -16,13 +16,13 @@ import br.ufba.tomorrow.todo.repository.UsuarioRepository;
 @Service
 public class UsuarioService {
     @Autowired
-    UsuarioRepository usuarioRepository;
+    private UsuarioRepository usuarioRepository;
 
     @Autowired
-    UsuarioMapper usuarioMapper;
+    private UsuarioMapper usuarioMapper;
 
     public List<UsuarioDTO> listar() {
-        List<UsuarioDTO> usuarios = usuarioRepository.findAll().stream().map(usuarioMapper::toDTO)
+        List<UsuarioDTO> usuarios = usuarioRepository.findByAtivo(true).stream().map(usuarioMapper::toDTO)
                 .collect(Collectors.toList());
         return usuarios;
     }
@@ -47,7 +47,8 @@ public class UsuarioService {
         Usuario usuario = usuarioRepository.findById(usuarioId)
                 .orElseThrow(() -> new RuntimeException("Usuário não encontrado"));
         
-        usuarioRepository.delete(usuario);
+        usuario.setAtivo(false);
+        usuarioRepository.save(usuario);
 
         return usuarioMapper.toDTO(usuario);
     }

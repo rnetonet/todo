@@ -9,19 +9,24 @@ import org.springframework.stereotype.Service;
 
 import br.ufba.tomorrow.todo.domain.Todo;
 import br.ufba.tomorrow.todo.domain.TodoStatus;
+import br.ufba.tomorrow.todo.domain.Usuario;
 import br.ufba.tomorrow.todo.dto.TodoAtualizarDTO;
 import br.ufba.tomorrow.todo.dto.TodoCriarDTO;
 import br.ufba.tomorrow.todo.dto.TodoDTO;
 import br.ufba.tomorrow.todo.mappers.TodoMapper;
 import br.ufba.tomorrow.todo.repository.TodoRepository;
+import br.ufba.tomorrow.todo.repository.UsuarioRepository;
 
 @Service
 public class TodoService {
     @Autowired
-    TodoRepository todoRepository;
+    private TodoRepository todoRepository;
 
     @Autowired
-    TodoMapper todoMapper;
+    private UsuarioRepository usuarioRepository;
+
+    @Autowired
+    private TodoMapper todoMapper;
 
     public TodoDTO criar(TodoCriarDTO todoCriarDTO) {
         Todo todo = todoMapper.toEntity(todoCriarDTO);
@@ -36,6 +41,20 @@ public class TodoService {
                 .collect(Collectors.toList());
         return todos;
     }
+
+    public List<TodoDTO> listarPorUsuario(Long idUsuario) {
+        Usuario usuario = usuarioRepository.findById(idUsuario).orElseThrow(() -> new RuntimeException("Usuário não encontrado"));
+        List<TodoDTO> todos = todoRepository.findByUsuario(usuario).stream().map(todoMapper::toDTO).collect(Collectors.toList());
+        return todos;
+    }
+
+    public List<TodoDTO> listarPorUsuarioStatus(Long idUsuario, TodoStatus status) {
+        Usuario usuario = usuarioRepository.findById(idUsuario).orElseThrow(() -> new RuntimeException("Usuário não encontrado"));
+        List<TodoDTO> todos = todoRepository.findByUsuarioAndStatus(usuario, status).stream().map(todoMapper::toDTO)
+                .collect(Collectors.toList());
+        return todos;
+    }
+        
 
     public TodoDTO atualizar(TodoAtualizarDTO todoAtualizarDTO) {
         Todo todo = todoRepository.findById(todoAtualizarDTO.getId())

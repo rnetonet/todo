@@ -1,0 +1,16 @@
+meta {
+  name: Autenticar
+  type: http
+  seq: 5
+}
+
+post {
+  url: http://localhost:8080/autenticar
+  body: none
+  auth: basic
+}
+
+auth:basic {
+  username: admin@admin.com
+  password: admin
+}

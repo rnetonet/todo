@@ -16,13 +16,16 @@
             <column name="senha" type="varchar(255)">
                 <constraints nullable="false"/>
             </column>
+            <column name="ativo" type="boolean" defaultValue="true">
+                <constraints nullable="false"/>
+            </column>
         </createTable>
     </changeSet>
 
     <changeSet id="2" author="rnetonet">
         <insert tableName="usuario">
-            <column name="email" value="admin@example.com"/>
-            <column name="senha" value="admin123"/>
+            <column name="email" value="admin@admin.com"/>
+            <column name="senha" value="$2a$12$V0A1vpDL5vZWeKO8XSsLbOkO2rraBEVQYV1Rzh391KxllImfcBhNa"/>
         </insert>
     </changeSet>
 
